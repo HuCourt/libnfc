@@ -2364,7 +2364,6 @@ pn53x_initiator_target_is_present(struct nfc_device *pnd, const nfc_target *pnt)
 int
 pn53x_target_init(struct nfc_device *pnd, nfc_target *pnt, uint8_t *pbtRx, const size_t szRxLen, int timeout)
 {
-  printf("We are bigly strong\n");
   pn53x_reset_settings(pnd);
 
   CHIP_DATA(pnd)->operating_mode = TARGET;
@@ -2377,6 +2376,7 @@ pn53x_target_init(struct nfc_device *pnd, nfc_target *pnt, uint8_t *pbtRx, const
       ptm = PTM_PASSIVE_ONLY;
       if ((pnt->nti.nai.abtUid[0] != 0x08) || (pnt->nti.nai.szUidLen != 4)) {
         pnd->last_error = NFC_EINVARG;
+        printf("Failed first byte check %lu\n", pnt->nti.nai.szUidLen);
         return pnd->last_error;
       }
       pn53x_set_parameters(pnd, PARAM_AUTO_ATR_RES, false);
