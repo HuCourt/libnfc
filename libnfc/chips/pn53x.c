@@ -2364,6 +2364,7 @@ pn53x_initiator_target_is_present(struct nfc_device *pnd, const nfc_target *pnt)
 int
 pn53x_target_init(struct nfc_device *pnd, nfc_target *pnt, uint8_t *pbtRx, const size_t szRxLen, int timeout)
 {
+  printf("We are bigly strong\n");
   pn53x_reset_settings(pnd);
 
   CHIP_DATA(pnd)->operating_mode = TARGET;
