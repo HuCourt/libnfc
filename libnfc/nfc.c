@@ -1032,7 +1032,16 @@ nfc_target_init(nfc_device *pnd, nfc_target *pnt, uint8_t *pbtRx, const size_t s
     return res;
   }
   printf("Executing HAL ...\n");
-  HAL(target_init, pnd, pnt, pbtRx, szRx, timeout);
+  pnd->last_error = 0;
+  if (pnd->driver->target_init) {
+    int ret = pnd->driver->target_init( pnd, pnt, pbtRx, szRx, timeout );
+    printf("Last error: %d / ret %d\n", pnd->last_error, ret);
+    return ret;
+  } else {
+    pnd->last_error = NFC_EDEVNOTSUPP;
+    printf("Bigly error\n");
+    return false;
+  }
   printf("HAL done\n");
 }
 
