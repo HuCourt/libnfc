@@ -986,29 +986,54 @@ nfc_target_init(nfc_device *pnd, nfc_target *pnt, uint8_t *pbtRx, const size_t s
   int res = 0;
   // Disallow invalid frame
   if ((res = nfc_device_set_property_bool(pnd, NP_ACCEPT_INVALID_FRAMES, false)) < 0)
+  {
+    printf("Failed on disallow invalid frame %d\n", res);
     return res;
+  }
   // Disallow multiple frames
   if ((res = nfc_device_set_property_bool(pnd, NP_ACCEPT_MULTIPLE_FRAMES, false)) < 0)
+  {
+    printf("Failed on disallow multiple frame %d\n", res);
     return res;
+  }
   // Make sure we reset the CRC and parity to chip handling.
   if ((res = nfc_device_set_property_bool(pnd, NP_HANDLE_CRC, true)) < 0)
+  {
+    printf("Failed on reset crc %d\n", res);
     return res;
+  }
   if ((res = nfc_device_set_property_bool(pnd, NP_HANDLE_PARITY, true)) < 0)
+  {
+    printf("Failed on reset handle %d\n", res);
     return res;
+  }
   // Activate auto ISO14443-4 switching by default
   if ((res = nfc_device_set_property_bool(pnd, NP_AUTO_ISO14443_4, true)) < 0)
+  {
+    printf("Failed on activate auto ISO14443-4 switching %d\n", res);
     return res;
+  }
   // Activate "easy framing" feature by default
   if ((res = nfc_device_set_property_bool(pnd, NP_EASY_FRAMING, true)) < 0)
+  {
+    printf("Failed on activate easy framning %d\n", res);
     return res;
+  }
   // Deactivate the CRYPTO1 cipher, it may could cause problems when still active
   if ((res = nfc_device_set_property_bool(pnd, NP_ACTIVATE_CRYPTO1, false)) < 0)
+  {
+    printf("Failed on desactivate crypt cipher %d\n", res);
     return res;
+  }
   // Drop explicitely the field
   if ((res = nfc_device_set_property_bool(pnd, NP_ACTIVATE_FIELD, false)) < 0)
+  {
+    printf("Failed on drop the field %d\n", res);
     return res;
-
+  }
+  printf("Executing HAL ...\n");
   HAL(target_init, pnd, pnt, pbtRx, szRx, timeout);
+  printf("HAL done\n");
 }
 
 /** @ingroup dev
