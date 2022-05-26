@@ -355,7 +355,7 @@ main(int argc, char *argv[])
     ntEmulatedTarget.nti.nai.szUidLen = 4;
     ntEmulatedTarget.nti.nai.abtAtqa[1] &= (0xFF - 0x40);
     // First byte of UID is always automatically replaced by 0x08 in this mode anyway
-    ntEmulatedTarget.nti.nai.abtUid[0] = 0x08;
+    // ntEmulatedTarget.nti.nai.abtUid[0] = 0x08;
     // ATS is always automatically replaced by PN532, we've no control on it:
     // ATS = (05) 75 33 92 03
     //       (TL) T0 TA TB TC
